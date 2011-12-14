@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:processDefinition="http://petals.ow2.org/bpel/DynamicProcess/" xmlns:tns="http://petals.ow2.org/bpel/DynamicProcess/Artifacts" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://greeting.baile.usp/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DynamicProcessArtifacts" targetNamespace="http://petals.ow2.org/bpel/DynamicProcess/Artifacts">
+		
+    <plnk:partnerLinkType name="DynamicProcessPLT">
+        <plnk:role name="DynamicProcessRole" portType="processDefinition:DynamicProcessPortType"/>
+    </plnk:partnerLinkType>
+  
+    <plnk:partnerLinkType name="GreetingPLT">
+    <plnk:role name="GreetingRole" portType="wsdl:Greeting"/>
+  </plnk:partnerLinkType>
+    <import location="DynamicProcessDefinition.wsdl" namespace="http://petals.ow2.org/bpel/DynamicProcess/"/>
+    <import location="greeting.wsdl" namespace="http://greeting.baile.usp/"/>
+</definitions>

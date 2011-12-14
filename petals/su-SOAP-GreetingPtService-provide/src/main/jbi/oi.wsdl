@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="GreetingPtService" targetNamespace="http://greeting.baile.usp/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://greeting.baile.usp/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://greeting.baile.usp/" schemaLocation="oi_xsd_1"/>
+    </xsd:schema>
+  </types>
+  <message name="greet">
+    <part name="parameters" element="tns:greet">
+    </part>
+  </message>
+  <message name="greetResponse">
+    <part name="parameters" element="tns:greetResponse">
+    </part>
+  </message>
+  <portType name="Greeting">
+    <operation name="greet">
+      <input message="tns:greet">
+    </input>
+      <output message="tns:greetResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="GreetingPtPortBinding" type="tns:Greeting">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="greet">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="GreetingPtService">
+    <port name="GreetingPtPort" binding="tns:GreetingPtPortBinding">
+      <soap:address location="http://localhost:1235/oi"/>
+    </port>
+  </service>
+</definitions>

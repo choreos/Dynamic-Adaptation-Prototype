@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://greeting.baile.usp/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="GreetingProxyService" targetNamespace="http://greeting.baile.usp/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://greeting.baile.usp/" schemaLocation="greeting_xsd_1" />
+    </xsd:schema>
+  </types>
+  <message name="greet">
+    <part name="parameters" element="tns:greet" />
+  </message>
+  <message name="greetResponse">
+    <part name="parameters" element="tns:greetResponse" />
+  </message>
+  <portType name="Greeting">
+    <operation name="greet">
+      <input message="tns:greet" />
+      <output message="tns:greetResponse" />
+    </operation>
+  </portType>
+  <binding name="GreetingProxyPortBinding" type="tns:Greeting">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="greet">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="GreetingProxyService">
+    <port name="GreetingProxyPort" binding="tns:GreetingProxyPortBinding">
+      <soap:address location="http://localhost:1237/greeting" />
+    </port>
+  </service>
+</definitions>
+
