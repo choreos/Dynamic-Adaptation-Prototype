@@ -3,28 +3,28 @@ Guilherme Nogueira, Leonardo Leite
 IME - USP
 
 PROTOTYPE GOAL: 
-Enabling the dynamic service change in a BPEL service composition.
+Enabling dynamic service change in a BPEL service composition.
 
 USE CASE: 
-The user (a BPEL designer) don't know at design time the endpoint of a partner link. This information will be available only at runtime.
+The user (a BPEL designer) doesn't know at design time the endpoint of a partner link. This information will be available only at runtime.
 If, at runtime, more than one service are available, it should be possible to dynamically select 'the best one' according to any desired policy. 
 
 
 ARCHITECTURE:
-The BPEL designer will first generate a proxy service with the same port-type (interface) of the actual desired service.  
+The BPEL designer will first generate a proxy service with the same port-type (interface or role) of the desired service.  
 This proxy will delegate the operation call to the actual service that implements the operation. 
 Such service will be known at runtime by the proxy by a 'getEndpoint' operation call to the Addresser service.
 This addresser service implements the selection policy and must be specified by the designer as well.
 After having the proxy and the addresser service, the designer can design the BPEL flow using the proxy service as a normal service.
-Our current prototype doesn't synthesizes the proxy yet, but provides a proxy service to a specific service composition, enabling the dynamic service change in that composition.  
+Our current prototype doesn't synthesize the proxy yet, but provides a proxy service to a specific service composition, enabling the dynamic service change in that composition.
 
 OUR EXAMPLE:
-It's a simple example of a service that greets a person. It has an operation 'greet' that receives a person name and return a greeting like 'Hello John'.
-But we want to dynamically change the greeting language. So, we created a proxy to the greeting service that asks the Addresser for the endpoint of a real greeting service.
+It's a simple example of a service that greets a person. It has a 'greet' operation that receives a person name and returns a greeting like 'Hello John'.
+We want to dynamically change the greeting language. So, we create a proxy for the greeting service that asks the Addresser for the endpoint of a real greeting service.
 The available greeting services are the GreetingEn, which greets in English, the GreetingPt, which greets in Portuguese, and the GreetingIt, which greets in Italian.
 The addresser policy is to change sequentially the answer at each invocation.
 In our example, we have yet a trivial BPEL composition that just calls the 'greet' operation, setting the proxy service as the greeting partner link.
-Each invocation of this BPEL will result in a greeting with a different language, without any mention in the BPEL code to the services that implement such different languages greetings.
+Each invocation of this BPEL will result in a greeting with a different language, without any mention in BPEL code to the services that implement the different greetings.
 
 FIRST APPROACH: 
 Initially, we tried to use the dynamic BPEL feature of dynamic endpoint reference change, according to the ideas in [1].
@@ -33,9 +33,9 @@ We performed the tests on the Petals BPEL engine, but we were not able to achiev
 Our problems were reported to the Petals developers [2].
 
 FUTURE IMPROVEMENTS:
-The more important task is to automatically generate the proxy service, given a WSDL port type and a addresser endpoint.
-In the current state, the proxy would correctly pass just String return types. 
-So, we need a more generic implementation able to pass the whole SOAP envelope body.
+The more important task is to automatically generate the proxy service, given a WSDL port type and the addresser endpoint.
+In the current state, the proxy works only with String return types. 
+We need to implementation support for other return types by modifying the rehearsal framework.
 
 [1] http://www.oracle.com/technetwork/articles/carey-090553.html
 [2] http://forum.petalslink.com/BPEL-ERROR-assign-EndpointReference-variable-to-a-partnerLink-td3528646.html
