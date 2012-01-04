@@ -1,11 +1,15 @@
 package usp.baile.dynamic;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import javax.jws.WebService;
+
+@WebService(endpointInterface="usp.baile.dynamic.Supermarket")
 public class SupermarketImpl implements Supermarket {
 
 	// map items => cost
-	private static Map<String, String> items;
+	private static Map<String, String> items = new HashMap<String, String>();
 	
 	static {
 		items.put("milk", "U$1.00");

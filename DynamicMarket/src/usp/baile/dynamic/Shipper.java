@@ -1,5 +1,9 @@
 package usp.baile.dynamic;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
+@WebService
 public interface Shipper {
 
 	/**
@@ -8,6 +12,7 @@ public interface Shipper {
 	 * @param client identification of the consumer to who delivery the item
 	 * @param market identification of the supermarket that has ordered 
 	 */
+	@WebMethod
 	public void ship(String item, String client, String market);
 	
 	/**
@@ -17,6 +22,7 @@ public interface Shipper {
 	 * @param market identification of the supermarket that has ordered 
 	 * @return the expected time in hours
 	 */
+	@WebMethod
 	public String expectedDelivery(String item, String client, String market);
 	
 	/**
@@ -26,5 +32,6 @@ public interface Shipper {
 	 * @param market identification of the supermarket that has ordered 
 	 * @return the delivery cost (in dollars)
 	 */
+	@WebMethod
 	public String howMuch(String item, String client, String market);
 }

@@ -1,6 +1,9 @@
 package usp.baile.dynamic;
 
-public class ShipperImpl implements Shipper {
+import javax.jws.WebService;
+
+@WebService(endpointInterface="usp.baile.dynamic.Shipper")
+public class Shipper2 implements Shipper {
 
 	@Override
 	public void ship(String item, String client, String market) {
@@ -14,15 +17,15 @@ public class ShipperImpl implements Shipper {
 		// business rule: delivery date depends of the client first letter
 		char key = client.toUpperCase().charAt(0);
 		if ((key >= 'A') && (key <= 'D'))
-			return "3";
-		else if ((key >= 'E') && (key <= 'P'))
-			return "12";
-		else if ((key >= 'Q') && (key <= 'Z'))
-			return "24";
-		else if ((key >= '0') && (key <= '9'))
-			return "6";
-		else
 			return "15";
+		else if ((key >= 'E') && (key <= 'P'))
+			return "24";
+		else if ((key >= 'Q') && (key <= 'Z'))
+			return "6";
+		else if ((key >= '0') && (key <= '9'))
+			return "12";
+		else
+			return "3";
 	}
 
 	@Override
@@ -32,15 +35,15 @@ public class ShipperImpl implements Shipper {
 		// business rule: delivery date depends of the client first letter
 		char key = market.toUpperCase().charAt(market.length()-1);
 		if ((key >= 'A') && (key <= 'D'))
-			return "0.5";
-		else if ((key >= 'E') && (key <= 'P'))
 			return "0.3";
-		else if ((key >= 'Q') && (key <= 'Z'))
+		else if ((key >= 'E') && (key <= 'P'))
 			return "0.2";
-		else if ((key >= '0') && (key <= '9'))
+		else if ((key >= 'Q') && (key <= 'Z'))
 			return "0.1";
+		else if ((key >= '0') && (key <= '9'))
+			return "0.5";
 		else
-			return "1";
+			return "1.0";
 	}
 
 }
