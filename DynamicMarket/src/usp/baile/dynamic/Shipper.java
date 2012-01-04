@@ -15,7 +15,7 @@ public interface Shipper {
 	 * @param item the item to be shipped
 	 * @param client identification of the consumer to who delivery the item
 	 * @param market identification of the supermarket that has ordered 
-	 * @return the expected deliverable date
+	 * @return the expected time in hours
 	 */
 	public String expectedDelivery(String item, String client, String market);
 	
@@ -24,7 +24,7 @@ public interface Shipper {
 	 * @param item the item to be shipped
 	 * @param client identification of the consumer to who delivery the item
 	 * @param market identification of the supermarket that has ordered 
-	 * @return the delivery cost
+	 * @return the delivery cost (in dollars)
 	 */
 	public String howMuch(String item, String client, String market);
 }
