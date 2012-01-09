@@ -16,13 +16,6 @@ import eu.choreos.vv.exceptions.WSDLException;
 
 public class BaseServicesTest {
 
-//		WSClient client5 = new WSClient("http://localhost:1238/marketproxy?wsdl");
-//		WSClient client6 = new WSClient("http://localhost:1239/shipperproxy?wsdl");
-//
-//
-//		client5.request("findItem", "butter");
-//		client6.request("expectedDelivery", "butter", "John", "WillMart");
-	
 	@Test
 	public void testMarket() throws WSDLException, XmlException, IOException, FrameworkException, InvalidOperationNameException, NoSuchFieldException {
 		
@@ -60,5 +53,28 @@ public class BaseServicesTest {
 		String uri1 = "http://localhost:1235/shipper1";
 		String uri2 = "http://localhost:1236/shipper2";
 		assertTrue(response2.equals(uri1) || response2.equals(uri2));
+	}
+	
+	@Test
+	public void testMarketProxy() throws WSDLException, XmlException, IOException, FrameworkException, InvalidOperationNameException, NoSuchFieldException {
+		
+		WSClient client = new WSClient("http://localhost:1238/marketproxy?wsdl");
+		Item item = client.request("findItem", "butter");
+		String response = item.getChild("return").getContent();
+		
+		assertEquals("U$2.00", response);
+	}
+	
+	@Test
+	public void testShipperProxy() throws WSDLException, XmlException, IOException, FrameworkException, InvalidOperationNameException, NoSuchFieldException {
+		
+		WSClient client = new WSClient("http://localhost:1239/shipperproxy?wsdl");
+		Item item1 = client.request("expectedDelivery", "butter", "John", "WillMart");
+		Item item2 = client.request("howMuch", "butter", "John", "WillMart");
+		String response1 = item1.getChild("return").getContent();
+		String response2 = item2.getChild("return").getContent();
+		
+		assertTrue(response1.equals("12") || response1.equals("24"));
+		assertTrue(response2.equals("0.2") || response2.equals("0.1"));
 	}
 }

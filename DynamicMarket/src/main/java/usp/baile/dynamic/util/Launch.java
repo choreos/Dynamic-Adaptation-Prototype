@@ -9,6 +9,8 @@ import usp.baile.dynamic.Shipper1;
 import usp.baile.dynamic.Shipper2;
 import usp.baile.dynamic.Supermarket;
 import usp.baile.dynamic.SupermarketImpl;
+import usp.baile.dynamic.proxy.ShipperProxy;
+import usp.baile.dynamic.proxy.SupermarketProxy;
 
 public class Launch {
 
@@ -32,13 +34,13 @@ public class Launch {
 		Endpoint endpoint4 = Endpoint.create(service4);
 		endpoint4.publish("http://localhost:1237/addresser");
 		
-//		Supermarket service5 = new SupermarketProxy();
-//		Endpoint endpoint5 = Endpoint.create(service5);
-//		endpoint5.publish("http://localhost:1238/marketproxy");
-//		
-//		Shipper service6 = new ShipperProxy();
-//		Endpoint endpoint6 = Endpoint.create(service6);
-//		endpoint6.publish("http://localhost:1239/shipperproxy");
+		Supermarket service5 = new SupermarketProxy();
+		Endpoint endpoint5 = Endpoint.create(service5);
+		endpoint5.publish("http://localhost:1238/marketproxy");
+		
+		Shipper service6 = new ShipperProxy();
+		Endpoint endpoint6 = Endpoint.create(service6);
+		endpoint6.publish("http://localhost:1239/shipperproxy");
 	}
 
 }
