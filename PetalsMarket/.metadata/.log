@@ -1,0 +1,52 @@
+!SESSION 2012-01-09 15:33:57.265 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_22
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -plugincustomization plugin_customization.ini -plugincustomization plugin_customization.ini
+Command-line arguments:  -os linux -ws gtk -arch x86 -plugincustomization plugin_customization.ini -data /home/leonardo/workspace/Dynamic-Adaptation-Prototype/PetalsMarket -plugincustomization plugin_customization.ini
+
+!ENTRY com.ebmwebsourcing.petals.common 4 0 2012-01-09 15:35:32.747
+!MESSAGE WSDLException: faultCode=INVALID_WSDL: Fatal WSDL error:
+0:0,WSDL501,Expected a "{http://www.w3.org/ns/wsdl}description" element, but found a "html" element instead.
+!STACK 0
+WSDLException: faultCode=INVALID_WSDL: Fatal WSDL error:
+0:0,WSDL501,Expected a "{http://www.w3.org/ns/wsdl}description" element, but found a "html" element instead.: 
+	at org.apache.woden.internal.ErrorReporterImpl.reportError(ErrorReporterImpl.java:229)
+	at org.apache.woden.internal.ErrorReporterImpl.reportError(ErrorReporterImpl.java:184)
+	at org.apache.woden.internal.ErrorReporterImpl.reportError(ErrorReporterImpl.java:169)
+	at org.apache.woden.internal.BaseWSDLReader.parseDescription(BaseWSDLReader.java:357)
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:203)
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:234)
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:247)
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:122)
+	at com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.parse(WsdlParser.java:186)
+	at com.ebmwebsourcing.petals.services.su.wizards.pages.provide.bc.BcProvideJbiPage$6.run(BcProvideJbiPage.java:295)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+
+!ENTRY org.eclipse.bpel.validator 1 0 2012-01-09 15:37:03.842
+!MESSAGE Validator Startup 98ms
+
+!ENTRY com.ebmwebsourcing.petals.common 4 0 2012-01-09 15:37:24.957
+!MESSAGE WSDLException: faultCode=PARSER_ERROR: Could not locate the WSDL document at URL "http://localhost:1235/shipper2?wsdl".: http://localhost:1235/shipper2?wsdl
+!STACK 0
+WSDLException: faultCode=PARSER_ERROR: Could not locate the WSDL document at URL "http://localhost:1235/shipper2?wsdl".: http://localhost:1235/shipper2?wsdl: java.io.FileNotFoundException: http://localhost:1235/shipper2?wsdl
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1401)
+	at org.apache.xerces.impl.XMLEntityManager.setupCurrentEntity(Unknown Source)
+	at org.apache.xerces.impl.XMLVersionDetector.determineDocVersion(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.DOMParser.parse(Unknown Source)
+	at org.apache.woden.internal.DOMWSDLReader.getDocument(DOMWSDLReader.java:724)
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:245)
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:122)
+	at com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.parse(WsdlParser.java:186)
+	at com.ebmwebsourcing.petals.services.su.wizards.pages.provide.bc.BcProvideJbiPage$6.run(BcProvideJbiPage.java:295)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:252)
+	at org.apache.woden.internal.DOMWSDLReader.readWSDL(DOMWSDLReader.java:122)
+	at com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.parse(WsdlParser.java:186)
+	at com.ebmwebsourcing.petals.services.su.wizards.pages.provide.bc.BcProvideJbiPage$6.run(BcProvideJbiPage.java:295)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)

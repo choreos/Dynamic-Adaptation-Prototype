@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="SupermarketImplService" targetNamespace="http://dynamic.baile.usp/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://dynamic.baile.usp/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://dynamic.baile.usp/" schemaLocation="market_xsd_1"/>
+    </xsd:schema>
+  </types>
+  <message name="findItem">
+    <part name="parameters" element="tns:findItem">
+    </part>
+  </message>
+  <message name="purchaseResponse">
+    <part name="parameters" element="tns:purchaseResponse">
+    </part>
+  </message>
+  <message name="findItemResponse">
+    <part name="parameters" element="tns:findItemResponse">
+    </part>
+  </message>
+  <message name="purchase">
+    <part name="parameters" element="tns:purchase">
+    </part>
+  </message>
+  <portType name="Supermarket">
+    <operation name="purchase">
+      <input message="tns:purchase">
+    </input>
+      <output message="tns:purchaseResponse">
+    </output>
+    </operation>
+    <operation name="findItem">
+      <input message="tns:findItem">
+    </input>
+      <output message="tns:findItemResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="SupermarketImplPortBinding" type="tns:Supermarket">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="purchase">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="findItem">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="SupermarketImplService">
+    <port name="SupermarketImplPort" binding="tns:SupermarketImplPortBinding">
+      <soap:address location="http://localhost:1234/market"/>
+    </port>
+  </service>
+</definitions>
