@@ -50,3 +50,13 @@ WSDLException: faultCode=PARSER_ERROR: Could not locate the WSDL document at URL
 	at com.ebmwebsourcing.petals.common.internal.provisional.utils.WsdlParser.parse(WsdlParser.java:186)
 	at com.ebmwebsourcing.petals.services.su.wizards.pages.provide.bc.BcProvideJbiPage$6.run(BcProvideJbiPage.java:295)
 	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+!SESSION 2012-01-10 16:39:46.661 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_22
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86, WS=gtk, NL=en_US
+Framework arguments:  -plugincustomization plugin_customization.ini
+Command-line arguments:  -os linux -ws gtk -arch x86 -plugincustomization plugin_customization.ini
+
+!ENTRY org.eclipse.bpel.validator 1 0 2012-01-10 16:41:52.178
+!MESSAGE Validator Startup 150ms

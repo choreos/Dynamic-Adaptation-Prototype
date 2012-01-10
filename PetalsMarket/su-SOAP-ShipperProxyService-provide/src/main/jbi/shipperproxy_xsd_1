@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://dynamic.baile.usp/" version="1.0" targetNamespace="http://dynamic.baile.usp/">
+  <xs:element name="expectedDelivery" type="tns:expectedDelivery" />
+  <xs:element name="expectedDeliveryResponse" type="tns:expectedDeliveryResponse" />
+  <xs:element name="howMuch" type="tns:howMuch" />
+  <xs:element name="howMuchResponse" type="tns:howMuchResponse" />
+  <xs:element name="ship" type="tns:ship" />
+  <xs:element name="shipResponse" type="tns:shipResponse" />
+  <xs:complexType name="howMuch">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0" />
+      <xs:element name="arg1" type="xs:string" minOccurs="0" />
+      <xs:element name="arg2" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="howMuchResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ship">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0" />
+      <xs:element name="arg1" type="xs:string" minOccurs="0" />
+      <xs:element name="arg2" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="shipResponse">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="expectedDelivery">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0" />
+      <xs:element name="arg1" type="xs:string" minOccurs="0" />
+      <xs:element name="arg2" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="expectedDeliveryResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

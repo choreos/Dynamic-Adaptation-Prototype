@@ -1,5 +1,6 @@
-#Mon Jan 09 15:34:04 BRST 2012
+#Mon Jan 09 16:06:51 BRST 2012
 useQuickDiffPrefPage=true
+proposalOrderMigrated=true
 tabWidthPropagated=true
 content_assist_proposals_background=255,255,255
 org.eclipse.jdt.ui.javadoclocations.migrated=true
