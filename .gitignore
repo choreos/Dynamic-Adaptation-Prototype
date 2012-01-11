@@ -1,1 +1,13 @@
 PetalsMarket/.metadata/
+.metadata/
+DynamicMarket/.classpath
+DynamicMarket/.project
+DynamicMarket/.settings/
+DynamicMarket/target/
+GreetingProxy/.classpath
+GreetingProxy/.project
+GreetingProxy/.settings/
+GreetingProxy/bin/
+petals/.metadata/
+petals/Petals-Croquis/
+
