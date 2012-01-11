@@ -35,4 +35,10 @@ public class SupermarketImpl implements Supermarket {
 		return items.get(item);
 	}
 
+	@Override
+	public String getName() {
+
+		return "WillMart";
+	}
+
 }

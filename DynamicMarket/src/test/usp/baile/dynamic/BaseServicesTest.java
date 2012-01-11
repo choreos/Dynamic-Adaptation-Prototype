@@ -21,9 +21,12 @@ public class BaseServicesTest {
 		
 		WSClient client = new WSClient("http://localhost:1234/market?wsdl");
 		Item item = client.request("findItem", "butter");
-		String response = item.getChild("return").getContent();
+		String price = item.getChild("return").getContent();
+		item = client.request("getName");
+		String name = item.getChild("return").getContent();
 		
-		assertEquals("U$2.00", response);
+		assertEquals("U$2.00", price);
+		assertEquals("WillMart", name);
 	}
 
 	@Test

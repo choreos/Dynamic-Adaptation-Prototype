@@ -21,4 +21,11 @@ public interface Supermarket {
 	 */
 	@WebMethod
 	public String findItem(String item);
+	
+	/**
+	 *  
+	 * @return the supermarket name
+	 */
+	@WebMethod
+	public String getName();
 }

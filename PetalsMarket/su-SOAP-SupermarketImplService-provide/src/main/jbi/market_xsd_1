@@ -3,6 +3,8 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://dynamic.baile.usp/" version="1.0" targetNamespace="http://dynamic.baile.usp/">
   <xs:element name="findItem" type="tns:findItem" />
   <xs:element name="findItemResponse" type="tns:findItemResponse" />
+  <xs:element name="getName" type="tns:getName" />
+  <xs:element name="getNameResponse" type="tns:getNameResponse" />
   <xs:element name="purchase" type="tns:purchase" />
   <xs:element name="purchaseResponse" type="tns:purchaseResponse" />
   <xs:complexType name="purchase">
@@ -20,6 +22,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="findItemResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getName">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="getNameResponse">
     <xs:sequence>
       <xs:element name="return" type="xs:string" minOccurs="0" />
     </xs:sequence>

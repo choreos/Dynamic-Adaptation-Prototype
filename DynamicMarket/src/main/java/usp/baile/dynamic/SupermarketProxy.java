@@ -37,5 +37,19 @@ public class SupermarketProxy implements Supermarket {
 		result = requestor.requestString(OPERATION, ARGUMENTS);		
 		return result;
 	}
+	
+	@Override
+	public String getName() {
+
+		String OPERATION = "getName"; 
+		String[] ARGUMENTS = new String[]{};
+
+		String result = "";
+		ClientProvider provider = new ClientProvider(ADDRESSER_ENDPOINT, MY_ROLE);
+		WSClient wsclient = provider.getClient();
+		Requestor requestor = new Requestor(wsclient);
+		result = requestor.requestString(OPERATION, ARGUMENTS);		
+		return result;
+	}
 
 }
