@@ -16,15 +16,40 @@ This proxy will delegate the operation call to the actual service that implement
 Such service will be known at runtime by the proxy by a 'getEndpoint' operation call to the Addresser service.
 This addresser service implements the selection policy and must be specified by the designer as well.
 After having the proxy and the addresser service, the designer can design the BPEL flow using the proxy service as a normal service.
-Our current prototype doesn't synthesize the proxy yet, but provides a proxy service to a specific service composition, enabling the dynamic service change in that composition.
+Our current prototype doesn't synthesize the proxy yet, but provides proxy services to specific service compositions, enabling the dynamic service change in those compositions.
 
-OUR EXAMPLE:
+OUR SIMPLE EXAMPLE:
 It's a simple example of a service that greets a person. It has a 'greet' operation that receives a person name and returns a greeting like 'Hello John'.
 We want to dynamically change the greeting language. So, we create a proxy for the greeting service that asks the Addresser for the endpoint of a real greeting service.
 The available greeting services are the GreetingEn, which greets in English, the GreetingPt, which greets in Portuguese, and the GreetingIt, which greets in Italian.
 The addresser policy is to change sequentially the answer at each invocation.
 In our example, we have yet a trivial BPEL composition that just calls the 'greet' operation, setting the proxy service as the greeting partner link.
 Each invocation of this BPEL will result in a greeting with a different language, without any mention in BPEL code to the services that implement the different greetings.
+
+OUR CHOREOGRAPHIC EXAMPLE
+The choreography is a service composition of basic services of two organizations: a supermarket and a shipper.
+The supermarket web service has the following operations: purchase(item, client), findItem(item), getName()
+The shipper web service has the following operations: ship(item, client, market), expectedDelivery(item, client, market), howMuch(item, client, market)
+Such operations cannot be invoked from outside the organizations.
+The two organizations must cooperate through a choreography as following:
+* The supermarket workflow (SM) is invoked by the client
+* SM invokes the purchase operation
+* SM invokes the getName operation
+* SM invokes the Shipper workflow (SH)
+* SH invokes the ship operation
+* SH invokes the expectedTime operation
+* SH returns the expected time to delivery the order
+* SM receives the returned expected time from SH
+* SM return to the client the expected time to delivery the order
+Each workflow is a public process known by the partner.
+We wish the supermarket can dynamically choose the shipper company, considering the price (howMuch) and the delivery time (expectedTime).
+We've implemented: 
+* a BPEL process for each described choreography workflow
+* one web service for supermarket and two web services for shippers
+* one supermarket proxy and one shipper proxy
+* one addresser service for the choreography
+Important note: the BPEL processes only know the proxy services as basic services.
+So we have the choreography design activity decoupled from the concrete service endpoints definition  
 
 FIRST APPROACH: 
 Initially, we tried to use the dynamic BPEL feature of dynamic endpoint reference change, according to the ideas in [1].
@@ -35,7 +60,7 @@ Our problems were reported to the Petals developers [2].
 FUTURE IMPROVEMENTS:
 The more important task is to automatically generate the proxy service, given a WSDL port type and the addresser endpoint.
 In the current state, the proxy works only with String return types. 
-We need to implementation support for other return types by modifying the rehearsal framework.
+We need to implementation support for other return types.
 
 [1] http://www.oracle.com/technetwork/articles/carey-090553.html
 [2] http://forum.petalslink.com/BPEL-ERROR-assign-EndpointReference-variable-to-a-partnerLink-td3528646.html
