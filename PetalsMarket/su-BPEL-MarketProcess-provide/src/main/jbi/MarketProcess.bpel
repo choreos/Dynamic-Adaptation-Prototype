@@ -1,0 +1,158 @@
+<process name="MarketProcess"
+         targetNamespace="http://petals.ow2.org/bpel/MarketProcess/"          
+         xmlns:tns="http://petals.ow2.org/bpel/MarketProcess/"
+         xmlns:artifacts="http://petals.ow2.org/bpel/MarketProcess/Artifacts"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns="http://dynamic.baile.usp/" xmlns:ns0="http://petals.ow2.org/bpel/ShipperProcess/">
+
+    <!-- Import the client WSDL -->
+    <bpel:import namespace="http://petals.ow2.org/bpel/ShipperProcess/" location="ShipperProcessDefinition.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import namespace="http://dynamic.baile.usp/" location="market.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <import location="MarketProcessDefinition.wsdl" 
+			namespace="http://petals.ow2.org/bpel/MarketProcess/" 
+	        importType="http://schemas.xmlsoap.org/wsdl/" />
+	        
+	<import location="MarketProcessArtifacts.wsdl"
+			namespace="http://petals.ow2.org/bpel/MarketProcess/Artifacts"
+			importType="http://schemas.xmlsoap.org/wsdl/" />
+	                
+    <!-- ================================================================= -->         
+    <!-- PARTNERLINKS                                                      -->
+    <!-- List of services participating in this BPEL process               -->
+    <!-- ================================================================= -->         
+    <partnerLinks>
+        <!-- The 'client' role represents the requester of this service. -->
+        <partnerLink name="MarketProcessPartner"
+                     partnerLinkType="artifacts:MarketProcessPLT"
+                     myRole="MarketProcessRole" />
+        <bpel:partnerLink name="MarketPartner" partnerLinkType="artifacts:SupermarkerPLT" partnerRole="SupermarketRole"></bpel:partnerLink>
+        <bpel:partnerLink name="ShipperProcessPartner" partnerLinkType="artifacts:ShipperProcessPLT" partnerRole="ShipperProcessRole"></bpel:partnerLink>
+    </partnerLinks>
+  
+    <!-- ================================================================= -->         
+    <!-- VARIABLES                                                         -->
+    <!-- List of messages and XML documents used within this BPEL process  -->
+    <!-- ================================================================= -->         
+    <variables>
+    	<bpel:variable 	name="MarketProcessPartnerRequest" 
+    					messageType="tns:MarketProcessRequestMessage" />
+        <bpel:variable name="MarketPartnerResponse" messageType="ns:purchaseResponse"></bpel:variable>
+        <bpel:variable name="MarketPartnerRequest" messageType="ns:purchase"></bpel:variable>
+        <bpel:variable name="MarketPartnerResponse1" messageType="ns:getNameResponse"></bpel:variable>
+        <bpel:variable name="MarketPartnerRequest1" messageType="ns:getName">
+            <bpel:from></bpel:from>
+        </bpel:variable>
+        <bpel:variable name="ShipperProcessPartnerResponse" messageType="ns0:ShipperProcessResponseMessage"></bpel:variable>
+        <bpel:variable name="ShipperProcessPartnerRequest" messageType="ns0:ShipperProcessRequestMessage"></bpel:variable>
+        <bpel:variable name="MarketProcessPartnerResponse" messageType="tns:MarketProcessResponseMessage"></bpel:variable>
+    </variables>
+
+    <!-- ================================================================= -->         
+    <!-- ORCHESTRATION LOGIC                                               -->
+    <!-- Set of activities coordinating the flow of messages across the    -->
+    <!-- services integrated within this business process                  -->
+    <!-- ================================================================= -->         
+    <sequence name="MainSequence">
+    	<bpel:receive 	name="ReceiveMessage" partnerLink="MarketProcessPartner" 
+    					operation="process" portType="tns:MarketProcessPortType" 
+    					variable="MarketProcessPartnerRequest" />
+        <bpel:assign validate="no" name="AssignToPurchase">
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:purchase xmlns:tns="http://dynamic.baile.usp/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></tns:purchase>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="MarketPartnerRequest" part="parameters"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="MarketProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:item]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="MarketPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg0]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="MarketProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:client]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="MarketPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg1]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:invoke name="InvokePurchase" partnerLink="MarketPartner" operation="purchase" portType="ns:Supermarket" inputVariable="MarketPartnerRequest" outputVariable="MarketPartnerResponse"></bpel:invoke>
+        <bpel:assign validate="no" name="AssignNull">
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:getName xmlns:tns="http://dynamic.baile.usp/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></tns:getName>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="MarketPartnerRequest1" part="parameters"></bpel:to>
+            </bpel:copy>
+            
+        </bpel:assign>
+        <bpel:invoke name="InvokeGetName" partnerLink="MarketPartner" operation="getName" portType="ns:Supermarket" inputVariable="MarketPartnerRequest1" outputVariable="MarketPartnerResponse1"></bpel:invoke>
+        <bpel:assign validate="no" name="AssignToShipProcess">
+            
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:ShipperProcessRequest xmlns:tns="http://petals.ow2.org/bpel/ShipperProcess/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:string1></tns:string1>
+  <tns:string2></tns:string2>
+  <tns:string3></tns:string3>
+</tns:ShipperProcessRequest>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="ShipperProcessPartnerRequest" part="payload"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="MarketProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:item]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="payload" variable="ShipperProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns0:string1]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="MarketProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:client]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="payload" variable="ShipperProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns0:string2]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="parameters" variable="MarketPartnerResponse1">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[return]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="payload" variable="ShipperProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns0:string3]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:invoke name="InvokeShipProcess" partnerLink="ShipperProcessPartner" operation="process" portType="ns0:ShipperProcessPortType" inputVariable="ShipperProcessPartnerRequest" outputVariable="ShipperProcessPartnerResponse"></bpel:invoke>
+        <bpel:assign validate="no" name="AssignReply">
+            
+            
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:MarketProcessResponse xmlns:tns="http://petals.ow2.org/bpel/MarketProcess/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:result></tns:result>
+</tns:MarketProcessResponse>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="MarketProcessPartnerResponse" part="payload"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="ShipperProcessPartnerResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns0:result]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="payload" variable="MarketProcessPartnerResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:result]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:reply name="Reply" partnerLink="MarketProcessPartner" operation="process" variable="MarketProcessPartnerResponse"></bpel:reply>
+    </sequence>
+</process>

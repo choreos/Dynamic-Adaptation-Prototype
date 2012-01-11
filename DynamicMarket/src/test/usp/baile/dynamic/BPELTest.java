@@ -16,11 +16,21 @@ import eu.choreos.vv.exceptions.WSDLException;
 public class BPELTest {
 
 	@Test
-	public void testShippers() throws WSDLException, XmlException, IOException, FrameworkException, InvalidOperationNameException, NoSuchFieldException {
+	public void testShipperProcess() throws WSDLException, XmlException, IOException, FrameworkException, InvalidOperationNameException, NoSuchFieldException {
 		
 		WSClient client = new WSClient("http://localhost:8084/petals/services/ShipperProcessService?wsdl");
 		Item item = client.request("process", "butter", "Elvis", "WillMart");
 		String response = item.getChild("ShipperProcessResponse").getChild("result").getContent();
+		
+		assertTrue(response.equals("12") || response.equals("24"));
+	}
+	
+	@Test
+	public void testMarketProcess() throws WSDLException, XmlException, IOException, FrameworkException, InvalidOperationNameException, NoSuchFieldException {
+		
+		WSClient client = new WSClient("http://localhost:8084/petals/services/MarketProcessService?wsdl");
+		Item item = client.request("process", "milk", "Elvis");
+		String response = item.getChild("MarketProcessResponse").getChild("result").getContent();
 		
 		assertTrue(response.equals("12") || response.equals("24"));
 	}

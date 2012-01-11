@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://petals.ow2.org/bpel/ShipperProcess/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="ShipperProcessDefinition" targetNamespace="http://petals.ow2.org/bpel/ShipperProcess/">
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:petals="http://petals.ow2.org/bpel/ShipperProcess/" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://petals.ow2.org/bpel/ShipperProcess/">
+      <element name="ShipperProcessRequest" type="petals:ShipperProcessRequest" />
+      <complexType name="ShipperProcessRequest">
+        <sequence>
+          <element name="string1" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="string2" type="string" />
+          <element minOccurs="1" maxOccurs="1" name="string3" type="string" />
+        </sequence>
+      </complexType>
+      <element name="ShipperProcessResponse" type="petals:ShipperProcessResponse" />
+      <complexType name="ShipperProcessResponse">
+        <sequence>
+          <element name="result" type="string" />
+        </sequence>
+      </complexType>
+    </schema>
+  </types>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type definitions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <message name="ShipperProcessRequestMessage">
+    <part name="payload" element="tns:ShipperProcessRequest" />
+  </message>
+  <message name="ShipperProcessResponseMessage">
+    <part name="payload" element="tns:ShipperProcessResponse" />
+  </message>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <!-- portType implemented by the processName BPEL process -->
+  <portType name="ShipperProcessPortType">
+    <operation name="process">
+      <input name="processInput" message="tns:ShipperProcessRequestMessage" />
+      <output name="processOutput" message="tns:ShipperProcessResponseMessage" />
+    </operation>
+  </portType>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION 
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <binding name="ShipperProcessBinding" type="tns:ShipperProcessPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="process">
+      <soap:operation soapAction="http:petals.ow2.org/process" />
+      <input name="processInput">
+        <soap:body use="literal" />
+      </input>
+      <output name="processOutput">
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION 
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <service name="ShipperProcessService">
+    <port name="ShipperProcessEndpoint" binding="tns:ShipperProcessBinding">
+      <soap:address location="ShipperProcessEndpoint" />
+    </port>
+  </service>
+</definitions>
+

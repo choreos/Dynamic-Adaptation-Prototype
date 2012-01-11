@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<definitions name="MarketProcessDefinition"
+        targetNamespace="http://petals.ow2.org/bpel/MarketProcess/"
+        xmlns:tns="http://petals.ow2.org/bpel/MarketProcess/"
+        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+ 
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <types>
+        <schema 
+        		attributeFormDefault="unqualified" 
+        		elementFormDefault="qualified" 
+            	targetNamespace="http://petals.ow2.org/bpel/MarketProcess/" 
+            	xmlns="http://www.w3.org/2001/XMLSchema"
+            	xmlns:petals="http://petals.ow2.org/bpel/MarketProcess/">
+
+			<element name="MarketProcessRequest" type="petals:MarketProcessRequest" />
+            <complexType name="MarketProcessRequest">
+                    <sequence>
+                        <element name="item" type="string"/>
+                    <element minOccurs="1" maxOccurs="1" name="client" type="string"></element>
+                </sequence>
+            </complexType>
+
+			<element name="MarketProcessResponse" type="petals:MarketProcessResponse" />
+            <complexType name="MarketProcessResponse">
+                    <sequence>
+                        <element name="result" type="string"/>
+                    </sequence>
+            </complexType>
+        </schema>
+    </types>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type definitions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="MarketProcessRequestMessage">
+        <part name="payload" element="tns:MarketProcessRequest"/>
+    </message>
+    <message name="MarketProcessResponseMessage">
+        <part name="payload" element="tns:MarketProcessResponse"/>
+    </message>
+    
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the processName BPEL process -->
+    <portType name="MarketProcessPortType">
+        <operation name="process">
+            <input name="processInput" message="tns:MarketProcessRequestMessage" />
+            <output name="processOutput" message="tns:MarketProcessResponseMessage"/>
+        </operation>
+    </portType>
+
+
+ <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION 
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+  
+ 	<binding name="MarketProcessBinding" type="tns:MarketProcessPortType">
+    	<soap:binding style="document"
+ 			transport="http://schemas.xmlsoap.org/soap/http" />
+   		
+   		<operation name="process">
+			<soap:operation soapAction="http:petals.ow2.org/process" />
+			<input name="processInput">
+    			<soap:body use="literal" />
+    		</input>
+    		<output name="processOutput">
+    			<soap:body use="literal" />
+    		</output>
+		</operation>
+	</binding>
+      
+ <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION 
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+  
+    <service name="MarketProcessService">
+    	<port name="MarketProcessEndpoint" binding="tns:MarketProcessBinding">
+    		<soap:address location="MarketProcessEndpoint"></soap:address>
+    	</port>
+    </service>
+    
+</definitions>

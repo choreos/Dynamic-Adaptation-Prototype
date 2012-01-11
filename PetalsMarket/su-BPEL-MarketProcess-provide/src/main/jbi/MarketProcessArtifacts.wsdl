@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:processDefinition="http://petals.ow2.org/bpel/MarketProcess/" xmlns:tns="http://petals.ow2.org/bpel/MarketProcess/Artifacts" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://dynamic.baile.usp/" xmlns:wsdl1="http://petals.ow2.org/bpel/ShipperProcess/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MarketProcessArtifacts" targetNamespace="http://petals.ow2.org/bpel/MarketProcess/Artifacts">
+		
+    <plnk:partnerLinkType name="MarketProcessPLT">
+        <plnk:role name="MarketProcessRole" portType="processDefinition:MarketProcessPortType"/>
+    </plnk:partnerLinkType>
+  
+    <plnk:partnerLinkType name="SupermarkerPLT">
+    <plnk:role name="SupermarketRole" portType="wsdl:Supermarket"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="ShipperProcessPLT">
+    <plnk:role name="ShipperProcessRole" portType="wsdl1:ShipperProcessPortType"/>
+  </plnk:partnerLinkType>
+    <import location="MarketProcessDefinition.wsdl" namespace="http://petals.ow2.org/bpel/MarketProcess/"/>
+    <import location="market.wsdl" namespace="http://dynamic.baile.usp/"/>
+    <import location="ShipperProcessDefinition.wsdl" namespace="http://petals.ow2.org/bpel/ShipperProcess/"/>
+</definitions>
