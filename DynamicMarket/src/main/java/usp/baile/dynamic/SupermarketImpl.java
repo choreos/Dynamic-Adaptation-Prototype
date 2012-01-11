@@ -5,9 +5,13 @@ import java.util.Map;
 
 import javax.jws.WebService;
 
+import org.apache.log4j.Logger;
+
 @WebService(endpointInterface="usp.baile.dynamic.Supermarket")
 public class SupermarketImpl implements Supermarket {
 
+	static private Logger logger = Logger.getLogger(SupermarketImpl.class);
+	
 	// map items => cost
 	private static Map<String, String> items = new HashMap<String, String>();
 	
@@ -22,22 +26,20 @@ public class SupermarketImpl implements Supermarket {
 	@Override
 	public void purchase(String item, String client) {
 
-		// log
-		System.out.println("Client " + client + " is purchasing item " + item);
+		logger.info("Client " + client + " is purchasing item " + item);
 	}
 
 	@Override
 	public String findItem(String item) {
 
-		// log
-		System.out.println("Looking for item " + item);
-
+		logger.info("Looking for item " + item);
 		return items.get(item);
 	}
 
 	@Override
 	public String getName() {
 
+		logger.info("Returning name: WillMart");
 		return "WillMart";
 	}
 

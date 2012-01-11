@@ -2,6 +2,8 @@ package usp.baile.dynamic.util;
 
 import javax.xml.ws.Endpoint;
 
+import org.apache.log4j.PropertyConfigurator;
+
 import usp.baile.dynamic.Addresser;
 import usp.baile.dynamic.AddresserImpl;
 import usp.baile.dynamic.Shipper;
@@ -16,6 +18,7 @@ public class Launch {
 
 	public static void main(String[] args) {
 
+		PropertyConfigurator.configure("log.config"); // configure log4j		
 		System.out.println("Starting market services...");
 		
 		Supermarket service1 = new SupermarketImpl();

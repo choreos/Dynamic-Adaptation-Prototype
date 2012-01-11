@@ -2,21 +2,23 @@ package usp.baile.dynamic;
 
 import javax.jws.WebService;
 
+import org.apache.log4j.Logger;
+
 @WebService(endpointInterface="usp.baile.dynamic.Shipper")
 public class Shipper1 implements Shipper {
 
+	static private Logger logger = Logger.getLogger(Shipper1.class);
+	
 	@Override
 	public void ship(String item, String client, String market) {
 
-		// log
-		System.out.println("Shipping item " + item + " for client " + client + " and market " + market);
+		logger.info("Shipping item " + item + " for client " + client + " and market " + market);
 	}
 
 	@Override
 	public String expectedDelivery(String item, String client, String market) {
 		
-		// log
-		System.out.println("Calculating expected time to delivery. " +
+		logger.info("Calculating expected time to delivery. " +
 				"item " + item + ", client " + client + ", market " + market);
 		
 		// business rule: delivery date depends of the client first letter
@@ -36,8 +38,7 @@ public class Shipper1 implements Shipper {
 	@Override
 	public String howMuch(String item, String client, String market) {
 		
-		// log
-		System.out.println("Calculating how much is the delivery. " +
+		logger.info("Calculating how much is the delivery. " +
 				"item " + item + ", client " + client + ", market " + market);
 
 		// business rule: delivery date depends of the market last letter
