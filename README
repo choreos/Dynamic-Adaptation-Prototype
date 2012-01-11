@@ -58,9 +58,15 @@ We performed the tests on the Petals BPEL engine, but we were not able to achiev
 Our problems were reported to the Petals developers [2].
 
 FUTURE IMPROVEMENTS:
+#1
 The more important task is to automatically generate the proxy service, given a WSDL port type and the addresser endpoint.
+#2
 In the current state, the proxy works only with String return types. 
-We need to implementation support for other return types.
+We need to implement support for other return types.
+#3
+In the current state, each proxy invocation causes an addresser invocation.
+We must alter to make proxy invoking the addresser just in its first execution. 
+After that, the proxy will change the actual andpoint just if notified by the addresser.
 
 [1] http://www.oracle.com/technetwork/articles/carey-090553.html
 [2] http://forum.petalslink.com/BPEL-ERROR-assign-EndpointReference-variable-to-a-partnerLink-td3528646.html
