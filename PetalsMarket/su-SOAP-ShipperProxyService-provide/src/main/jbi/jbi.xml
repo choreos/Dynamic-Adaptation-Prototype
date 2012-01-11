@@ -4,10 +4,9 @@
 	Originally created for the version 4.0 of the component.
  -->
 <jbi:jbi version="1.0" 
-	xmlns:interfaceNs="http://dynamic.baile.usp/"
+	xmlns:generatedNs="http://dynamic.baile.usp/"
 	xmlns:jbi="http://java.sun.com/xml/ns/jbi"
 	xmlns:petalsCDK="http://petals.ow2.org/components/extensions/version-5"
-	xmlns:serviceNs="http://proxy.dynamic.baile.usp/"
 	xmlns:soap="http://petals.ow2.org/components/soap/version-4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	
@@ -16,8 +15,8 @@
 	
 		<!-- Import a Service into Petals => provides a Service. -->
 		<jbi:provides 		
-			interface-name="interfaceNs:Shipper"
-			service-name="serviceNs:ShipperProxyService"
+			interface-name="generatedNs:Shipper"
+			service-name="generatedNs:ShipperProxyService"
 			endpoint-name="ShipperProxyPort">
 	
 			<!-- CDK specific elements -->

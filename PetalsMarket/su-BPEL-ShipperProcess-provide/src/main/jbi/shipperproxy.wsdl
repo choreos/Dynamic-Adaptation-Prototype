@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://dynamic.baile.usp/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="ShipperProxyService" targetNamespace="http://dynamic.baile.usp/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://dynamic.baile.usp/" schemaLocation="shipperproxy_xsd_1" />
+    </xsd:schema>
+  </types>
+  <message name="howMuch">
+    <part name="parameters" element="tns:howMuch" />
+  </message>
+  <message name="ship">
+    <part name="parameters" element="tns:ship" />
+  </message>
+  <message name="shipResponse">
+    <part name="parameters" element="tns:shipResponse" />
+  </message>
+  <message name="howMuchResponse">
+    <part name="parameters" element="tns:howMuchResponse" />
+  </message>
+  <message name="expectedDelivery">
+    <part name="parameters" element="tns:expectedDelivery" />
+  </message>
+  <message name="expectedDeliveryResponse">
+    <part name="parameters" element="tns:expectedDeliveryResponse" />
+  </message>
+  <portType name="Shipper">
+    <operation name="howMuch">
+      <input message="tns:howMuch" />
+      <output message="tns:howMuchResponse" />
+    </operation>
+    <operation name="ship">
+      <input message="tns:ship" />
+      <output message="tns:shipResponse" />
+    </operation>
+    <operation name="expectedDelivery">
+      <input message="tns:expectedDelivery" />
+      <output message="tns:expectedDeliveryResponse" />
+    </operation>
+  </portType>
+  <binding name="ShipperProxyPortBinding" type="tns:Shipper">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="howMuch">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ship">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="expectedDelivery">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ShipperProxyService">
+    <port name="ShipperProxyPort" binding="tns:ShipperProxyPortBinding">
+      <soap:address location="http://localhost:1239/shipperproxy" />
+    </port>
+  </service>
+</definitions>
+

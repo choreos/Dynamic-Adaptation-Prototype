@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:processDefinition="http://petals.ow2.org/bpel/ShipperProcess/" xmlns:tns="http://petals.ow2.org/bpel/ShipperProcess/Artifacts" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://dynamic.baile.usp/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ShipperProcessArtifacts" targetNamespace="http://petals.ow2.org/bpel/ShipperProcess/Artifacts">
+		
+    <plnk:partnerLinkType name="ShipperProcessPLT">
+        <plnk:role name="ShipperProcessRole" portType="processDefinition:ShipperProcessPortType"/>
+    </plnk:partnerLinkType>
+  
+    <plnk:partnerLinkType name="ShipperPLT">
+    <plnk:role name="ShipperRole" portType="wsdl:Shipper"/>
+  </plnk:partnerLinkType>
+    <import location="ShipperProcessDefinition.wsdl" namespace="http://petals.ow2.org/bpel/ShipperProcess/"/>
+    <import location="shipperproxy.wsdl" namespace="http://dynamic.baile.usp/"/>
+</definitions>

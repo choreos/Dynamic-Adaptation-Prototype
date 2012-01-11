@@ -1,8 +1,9 @@
-package usp.baile.dynamic.proxy;
+package usp.baile.dynamic;
 
 import javax.jws.WebService;
 
-import usp.baile.dynamic.Shipper;
+import usp.baile.dynamic.proxy.ClientProvider;
+import usp.baile.dynamic.proxy.Requestor;
 import eu.choreos.vv.clientgenerator.WSClient;
 
 @WebService(endpointInterface="usp.baile.dynamic.Shipper")

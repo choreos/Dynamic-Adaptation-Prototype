@@ -1,0 +1,101 @@
+<process name="ShipperProcess"
+         targetNamespace="http://petals.ow2.org/bpel/ShipperProcess/"          
+         xmlns:tns="http://petals.ow2.org/bpel/ShipperProcess/"
+         xmlns:artifacts="http://petals.ow2.org/bpel/ShipperProcess/Artifacts"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns="http://dynamic.baile.usp/">
+
+    <!-- Import the client WSDL -->
+    <bpel:import namespace="http://dynamic.baile.usp/" location="shipperproxy.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <import location="ShipperProcessDefinition.wsdl" 
+			namespace="http://petals.ow2.org/bpel/ShipperProcess/" 
+	        importType="http://schemas.xmlsoap.org/wsdl/" />
+	        
+	<import location="ShipperProcessArtifacts.wsdl"
+			namespace="http://petals.ow2.org/bpel/ShipperProcess/Artifacts"
+			importType="http://schemas.xmlsoap.org/wsdl/" />
+	                
+    <!-- ================================================================= -->         
+    <!-- PARTNERLINKS                                                      -->
+    <!-- List of services participating in this BPEL process               -->
+    <!-- ================================================================= -->         
+    <partnerLinks>
+        <!-- The 'client' role represents the requester of this service. -->
+        <partnerLink name="ShipperProcessPartner"
+                     partnerLinkType="artifacts:ShipperProcessPLT"
+                     myRole="ShipperProcessRole" />
+        <bpel:partnerLink name="ShipperPartner" partnerLinkType="artifacts:ShipperPLT" partnerRole="ShipperRole"></bpel:partnerLink>
+    </partnerLinks>
+  
+    <!-- ================================================================= -->         
+    <!-- VARIABLES                                                         -->
+    <!-- List of messages and XML documents used within this BPEL process  -->
+    <!-- ================================================================= -->         
+    <variables>
+    	<bpel:variable 	name="ShipperProcessPartnerRequest" 
+    					messageType="tns:ShipperProcessRequestMessage" />
+        <bpel:variable name="ShipperPartnerResponse" messageType="ns:shipResponse"></bpel:variable>
+        <bpel:variable name="ShipperPartnerRequest" messageType="ns:ship"></bpel:variable>
+        <bpel:variable name="ShipperProcessPartnerResponse" messageType="tns:ShipperProcessResponseMessage"></bpel:variable>
+        
+        
+    </variables>
+
+    <!-- ================================================================= -->         
+    <!-- ORCHESTRATION LOGIC                                               -->
+    <!-- Set of activities coordinating the flow of messages across the    -->
+    <!-- services integrated within this business process                  -->
+    <!-- ================================================================= -->         
+    <sequence name="MainSequence">
+    	<bpel:receive 	name="ReceiveMessage" partnerLink="ShipperProcessPartner" 
+    					operation="process" portType="tns:ShipperProcessPortType" 
+    					variable="ShipperProcessPartnerRequest" />
+        
+        <bpel:assign validate="no" name="AssignShipOrder">
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:ship xmlns:tns="http://dynamic.baile.usp/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></tns:ship>
+</bpel:literal>
+                </bpel:from>
+                <bpel:to variable="ShipperPartnerRequest" part="parameters"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="ShipperProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:string1]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="ShipperPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg0]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="ShipperProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:string2]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="ShipperPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg1]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="payload" variable="ShipperProcessPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:string3]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="parameters" variable="ShipperPartnerRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg2]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:invoke name="InvokeShip" partnerLink="ShipperPartner" operation="ship" portType="ns:Shipper" inputVariable="ShipperPartnerRequest" outputVariable="ShipperPartnerResponse"></bpel:invoke>
+        
+        <bpel:assign validate="no" name="AssignReply">
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve">OK</bpel:literal>
+                </bpel:from>
+                <bpel:to part="payload" variable="ShipperProcessPartnerResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:result]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:reply name="Reply" partnerLink="ShipperProcessPartner" operation="process" variable="ShipperProcessPartnerResponse"></bpel:reply>
+    </sequence>
+</process>

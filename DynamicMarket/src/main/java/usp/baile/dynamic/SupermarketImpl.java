@@ -22,11 +22,15 @@ public class SupermarketImpl implements Supermarket {
 	@Override
 	public void purchase(String item, String client) {
 
-		// DO NOTHING
+		// log
+		System.out.println("Client " + client + " is purchasing item " + item);
 	}
 
 	@Override
 	public String findItem(String item) {
+
+		// log
+		System.out.println("Looking for item " + item);
 
 		return items.get(item);
 	}

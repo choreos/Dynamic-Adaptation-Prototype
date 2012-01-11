@@ -8,12 +8,17 @@ public class Shipper2 implements Shipper {
 	@Override
 	public void ship(String item, String client, String market) {
 
-		// DO NOTHING
+		// log
+		System.out.println("Shipping item " + item + " for client " + client + " and market " + market);
 	}
 
 	@Override
 	public String expectedDelivery(String item, String client, String market) {
 		
+		// log
+		System.out.println("Calculating expected time to delivery. " +
+				"item " + item + ", client " + client + ", market " + market);
+
 		// business rule: delivery date depends of the client first letter
 		char key = client.toUpperCase().charAt(0);
 		if ((key >= 'A') && (key <= 'D'))
@@ -31,6 +36,10 @@ public class Shipper2 implements Shipper {
 	@Override
 	public String howMuch(String item, String client, String market) {
 		
+		// log
+		System.out.println("Calculating expected time to delivery. " +
+				"item " + item + ", client " + client + ", market " + market);
+
 		// business rule: delivery date depends of the market last letter
 		// business rule: delivery date depends of the client first letter
 		char key = market.toUpperCase().charAt(market.length()-1);

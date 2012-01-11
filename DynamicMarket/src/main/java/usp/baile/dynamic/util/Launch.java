@@ -7,10 +7,10 @@ import usp.baile.dynamic.AddresserImpl;
 import usp.baile.dynamic.Shipper;
 import usp.baile.dynamic.Shipper1;
 import usp.baile.dynamic.Shipper2;
+import usp.baile.dynamic.ShipperProxy;
 import usp.baile.dynamic.Supermarket;
 import usp.baile.dynamic.SupermarketImpl;
-import usp.baile.dynamic.proxy.ShipperProxy;
-import usp.baile.dynamic.proxy.SupermarketProxy;
+import usp.baile.dynamic.SupermarketProxy;
 
 public class Launch {
 
