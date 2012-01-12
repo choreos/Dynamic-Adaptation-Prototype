@@ -8,4 +8,7 @@ public interface Addresser {
 
 	@WebMethod
 	String getEndpoint(String role);
+	
+	@WebMethod
+	void setEndpoint(String endpoint, String role);
 }
