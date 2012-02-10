@@ -29,7 +29,7 @@
        <groupId>eu.choreos</groupId>
        <artifactId>rehearsal</artifactId>
        <version>0.10</version>
-       <scope>jar</scope>
+       <type>jar</type>
     </dependency>
   </dependencies>
 
