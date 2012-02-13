@@ -20,10 +20,14 @@ public class CallDynamic {
 
 		// the BPEL composition was deployed on Petals
 		WSClient dynamicClient = new WSClient("http://localhost:8084/petals/services/DynamicGreeting?wsdl");
-		Item item = dynamicClient.request("process", "Dejan");
-		String response = item.getChild("result").getContent();
-		System.out.println(response);
-		System.exit(0);
+		
+		String[] responses = new String[3];
+		for (int i=0; i<3; i++) {
+			Item item = dynamicClient.request("process", "Dejan");
+			responses[i] = item.getChild("result").getContent();
+		}
+		for (String response: responses)
+			System.out.println(response);
 	}
 
 }
