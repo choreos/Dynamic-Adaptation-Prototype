@@ -9,4 +9,7 @@ public interface Addresser {
 	@WebMethod
 	String getEndpoint();
 
+	@WebMethod
+	void setEndpoint(String endpoint);
+
 }

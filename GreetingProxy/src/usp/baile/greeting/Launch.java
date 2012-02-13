@@ -6,7 +6,7 @@ public class Launch {
 
 	public static void main(String[] args) {
 
-		System.out.println("Starting services...");
+		System.out.print("Starting services...");
 		
 		Greeting service1 = new GreetingEn();
 		Endpoint endpoint1 = Endpoint.create(service1);
@@ -27,6 +27,8 @@ public class Launch {
 		Addresser service5 = new GreetingAddresser();
 		Endpoint endpoint5 = Endpoint.create(service5);
 		endpoint5.publish("http://localhost:1238/addresser");
+		
+		System.out.println("done!");
 	}
 
 }
